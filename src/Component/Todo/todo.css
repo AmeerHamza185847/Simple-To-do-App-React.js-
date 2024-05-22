@@ -1,0 +1,29 @@
+.mainForm{
+    width: 500px;
+    margin: auto;
+    display: flex;
+    gap: 1rem;
+}
+.mainForm p input[type='text']{
+    width: 500px;
+    height: 7vh;
+    margin: auto;
+}
+
+.mainForm p input[type='submit']{
+    height: 7.7vh;
+    padding-left: 20px;
+}
+
+
+.item{
+    width: 400px;
+    margin: auto;
+    height: 8vh;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: gainsboro;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: 1em;
+}
