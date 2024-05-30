@@ -1,19 +1,35 @@
 import React, { useState } from 'react';
 import './todo.css';
 
-const Todo = () => {
-    const [mainInput, setMainInput] = useState("");
-    const [todo, setTodo] = useState([]);
 
+export const Todo = () => {
+    const [newTodo, setNewTodo] = useState("");
+    const [todoArray, setTodoArray] = useState([]);
 
     let todoHandler = (e) => {
         e.preventDefault();
-        if (mainInput === "") {
-            alert("Please write some thing");
+        if(newTodo === "") {
+            alert("write your task");
         }
         else {
-            setTodo([...todo, mainInput]);
+            setTodoArray((prevTodos) => {
+                return [...prevTodos, newTodo];
+            })
+            setNewTodo("");
         }
+
+    }
+
+    let delTaskHandler = (id) => {
+        // remove using filter in react , avoid pop and other simple methods
+        // method 1
+        // let baqiTodos = todoArray.filter((todo , index)=> id !== index);
+        // setTodoArray(baqiTodos);
+        // method 2
+        setTodoArray(todoArray.filter((delItem, index) => {
+            return id !== index;
+        }));
+
     }
 
     return (
@@ -21,11 +37,11 @@ const Todo = () => {
             <form className='mainForm' onSubmit={todoHandler} >
                 <p>
                     <input
-                        // value={mainInput}
+                        value={newTodo}
                         type="text"
                         placeholder='Write Project name here'
                         required
-                        onChange={(e) => setMainInput(e.target.value.trim())}
+                        onChange={(e) => setNewTodo(e.target.value)}
                     />
                 </p>
                 <p>
@@ -35,17 +51,18 @@ const Todo = () => {
             <br />
 
             <div className='list'>
-                {todo.map((item, i) => (
-
-                    <div className='item' key={i}>{item}</div>
-
-                    // <div className='item' key={i}>{item}</div>
-                ))
+                {
+                    todoArray.map((item, itemIndx) => (
+                        <div className='item' key={itemIndx}>
+                            {item}
+                            <button className='delete' onClick={() => { delTaskHandler(itemIndx) }}>Remove</button>
+                            <button className='edit'>Edit</button>
+                        </div>
+                    ))
                 }
 
             </div>
+
         </div>
     )
 }
-
-export default Todo;
